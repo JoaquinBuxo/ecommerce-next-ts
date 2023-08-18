@@ -1,13 +1,13 @@
 'use client';
 
-import { SearchBar } from '@/components';
-import { Product } from '@/types';
+import { ProductList, SearchBar } from '@/components';
 import { useFetch } from '@/hooks/useFetch';
+import { ErrorBoundary } from 'react-error-boundary';
 
 const graphqlAPI = process.env.NEXT_PUBLIC_API_URL || '';
 
 export default function Home() {
-  const { data, loading } = useFetch(graphqlAPI);
+  const { data, loading, error } = useFetch(graphqlAPI);
 
   return (
     <main className='overflow-hidden'>
@@ -22,13 +22,11 @@ export default function Home() {
           {loading ? (
             <div>Loading...</div>
           ) : (
-            <div className='product-grid'>
-              {data.data.products.items?.map((product: Product) => (
-                <div key={product.id} className='product-card'>
-                  {product.name}
-                </div>
-              ))}
-            </div>
+            <ErrorBoundary
+              fallback={<div>Error fetching data: {error?.message}</div>}
+            >
+              <ProductList products={data?.data.products.items} />
+            </ErrorBoundary>
           )}
         </section>
       </div>

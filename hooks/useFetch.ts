@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 export const useFetch = (url: string) => {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -11,10 +12,13 @@ export const useFetch = (url: string) => {
       .then((data) => {
         setData(data);
       })
+      .catch((error) => {
+        setError(error);
+      })
       .finally(() => {
         setLoading(false);
       });
   }, [url]);
 
-  return { data, loading };
+  return { data, loading, error };
 };
