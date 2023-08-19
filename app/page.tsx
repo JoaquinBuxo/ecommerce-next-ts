@@ -13,8 +13,8 @@ export default function Home() {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    setFilteredProducts(data?.data?.products?.items);
-  }, [data]);
+    setFilteredProducts(data?.data.products.items);
+  }, [data?.data.products.items]);
 
   return (
     <main className='overflow-hidden'>
@@ -25,10 +25,7 @@ export default function Home() {
           </h1>
         </section>
         <section className='home__filters'>
-          <SearchBar
-            products={data?.data.products.items}
-            setFilteredProducts={setFilteredProducts}
-          />
+          <SearchBar setFilteredProducts={setFilteredProducts} />
         </section>
         <section className='products-container'>
           {loading ? (
