@@ -2,12 +2,19 @@
 
 import { ProductList, SearchBar } from '@/components';
 import { useFetch } from '@/hooks/useFetch';
+import { Product } from '@/types';
+import { useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 const graphqlAPI = process.env.NEXT_PUBLIC_API_URL || '';
 
 export default function Home() {
   const { data, loading, error } = useFetch(graphqlAPI);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    setFilteredProducts(data?.data?.products?.items);
+  }, [data]);
 
   return (
     <main className='overflow-hidden'>
@@ -18,7 +25,10 @@ export default function Home() {
           </h1>
         </section>
         <section className='home__filters'>
-          <SearchBar />
+          <SearchBar
+            products={data?.data.products.items}
+            setFilteredProducts={setFilteredProducts}
+          />
         </section>
         <section className='products-container'>
           {loading ? (
@@ -27,7 +37,7 @@ export default function Home() {
             <ErrorBoundary
               fallback={<div>Error fetching data: {error?.message}</div>}
             >
-              <ProductList products={data?.data.products.items} />
+              <ProductList products={filteredProducts} />
             </ErrorBoundary>
           )}
         </section>
