@@ -21,7 +21,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           className='h-full w-full object-cover object-center lg:h-full lg:w-full'
         />
       </div>
-      <div className='mt-4 flex justify-between'>
+      <div className='p-4 flex justify-between'>
         <div>
           <h3 className='text-sm text-gray-700'>{product.name}</h3>
           <p className='mt-1 text-sm text-gray-500'>{product.brand_name}</p>
@@ -32,9 +32,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           onClick={() => toggleFavorite(product)}
         >
           {isProductFavorite(product) ? (
-            <HeartFilledIcon className='h-7 w-7 mr-4 text-gray-400' />
+            <HeartFilledIcon className='h-7 w-7 text-gray-400' />
           ) : (
-            <HeartOutlineIcon className='h-7 w-7 mr-4 text-gray-400' />
+            <HeartOutlineIcon className='h-7 w-7 text-gray-400' />
           )}
         </button>
       </div>

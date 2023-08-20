@@ -1,6 +1,7 @@
 'use client';
 
 import FavoriteProducts from '@/components/FavoriteProducts';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { Product } from '@/types';
 import React, { createContext, useState } from 'react';
 
@@ -23,21 +24,26 @@ export const FavoriteProductsProvider = ({
   children: React.ReactNode;
 }) => {
   const [open, setOpen] = useState(false);
-  const [favoriteProducts, setFavoriteProducts] = useState<Product[]>([]);
+  const [favoriteProducts, setFavoriteProducts] = useLocalStorage(
+    'favoriteProducts',
+    []
+  );
 
   const openFavoriteProducts = () => setOpen(true);
   const closeFavoriteProducts = () => setOpen(false);
 
+  const isProductFavorite = (product: Product) =>
+    favoriteProducts.some((p: Product) => p.id === product.id);
+
   const toggleFavorite = (product: Product) => {
-    if (favoriteProducts.includes(product)) {
-      setFavoriteProducts(favoriteProducts.filter((p) => p !== product));
+    if (isProductFavorite(product)) {
+      setFavoriteProducts(
+        favoriteProducts.filter((p: Product) => p.id !== product.id)
+      );
     } else {
       setFavoriteProducts([...favoriteProducts, product]);
     }
   };
-
-  const isProductFavorite = (product: Product) =>
-    favoriteProducts.includes(product);
 
   const numFavoriteProducts = favoriteProducts.length;
 
