@@ -1,6 +1,6 @@
 'use client';
 
-import { ProductList, SearchProduct, SelectProduct } from '@/components';
+import { ProductList, SearchProduct, SelectProduct, Error } from '@/components';
 import NavBar from '@/components/NavBar';
 import { useFetch } from '@/hooks/useFetch';
 import { useState } from 'react';
@@ -34,9 +34,7 @@ export default function Home() {
           {loading ? (
             <div>Loading...</div>
           ) : (
-            <ErrorBoundary
-              fallback={<div>Error fetching data: {error?.message}</div>}
-            >
+            <ErrorBoundary fallback={<Error error={error} />}>
               <ProductList
                 products={data?.data.products.items}
                 filters={{ searchQuery, selectedBrand }}

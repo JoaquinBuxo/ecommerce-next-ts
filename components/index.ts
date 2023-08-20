@@ -5,6 +5,7 @@ import SearchProduct from './SearchProduct';
 import SelectProduct from './SelectProduct';
 import FavoriteProducts from './FavoriteProducts';
 import FavoriteProductCard from './FavoriteProductCard';
+import Error from './Error';
 
 export {
   NavBar,
@@ -14,4 +15,5 @@ export {
   SelectProduct,
   FavoriteProducts,
   FavoriteProductCard,
+  Error,
 };
