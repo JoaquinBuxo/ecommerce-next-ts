@@ -6,6 +6,7 @@ import SelectProduct from './SelectProduct';
 import FavoriteProducts from './FavoriteProducts';
 import FavoriteProductCard from './FavoriteProductCard';
 import Error from './Error';
+import Loading from './Loading';
 
 export {
   NavBar,
@@ -16,4 +17,5 @@ export {
   FavoriteProducts,
   FavoriteProductCard,
   Error,
+  Loading,
 };

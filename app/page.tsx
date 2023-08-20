@@ -1,6 +1,12 @@
 'use client';
 
-import { ProductList, SearchProduct, SelectProduct, Error } from '@/components';
+import {
+  ProductList,
+  SearchProduct,
+  SelectProduct,
+  Error,
+  Loading,
+} from '@/components';
 import NavBar from '@/components/NavBar';
 import { useFetch } from '@/hooks/useFetch';
 import { useState } from 'react';
@@ -32,7 +38,7 @@ export default function Home() {
         </section>
         <section className='products-container'>
           {loading ? (
-            <div>Loading...</div>
+            <Loading />
           ) : (
             <ErrorBoundary fallback={<Error error={error} />}>
               <ProductList

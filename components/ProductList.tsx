@@ -12,10 +12,10 @@ interface ProductListProps {
 
 const ProductList: React.FC<ProductListProps> = ({ products, filters }) => {
   const filteredProducts = products
-    .filter((product) =>
+    ?.filter((product: Product) =>
       product.sku.toLowerCase().includes(filters.searchQuery.toLowerCase())
     )
-    .filter((product) =>
+    .filter((product: Product) =>
       filters.selectedBrand === 'All Brands'
         ? true
         : product.brand_name === filters.selectedBrand
