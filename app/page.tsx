@@ -2,7 +2,6 @@
 
 import { ProductList, SearchProduct, SelectProduct } from '@/components';
 import NavBar from '@/components/NavBar';
-import { useFavoriteProducts } from '@/hooks/useFavoriteProducts';
 import { useFetch } from '@/hooks/useFetch';
 import { useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';

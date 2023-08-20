@@ -1,6 +1,17 @@
-import SearchProduct from './SearchProduct';
+import NavBar from './NavBar';
 import ProductList from './ProductList';
 import ProductCard from './ProductCard';
+import SearchProduct from './SearchProduct';
 import SelectProduct from './SelectProduct';
+import FavoriteProducts from './FavoriteProducts';
+import FavoriteProductCard from './FavoriteProductCard';
 
-export { SearchProduct, ProductList, ProductCard, SelectProduct };
+export {
+  NavBar,
+  ProductList,
+  ProductCard,
+  SearchProduct,
+  SelectProduct,
+  FavoriteProducts,
+  FavoriteProductCard,
+};

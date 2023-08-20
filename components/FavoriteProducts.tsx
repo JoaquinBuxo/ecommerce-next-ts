@@ -1,9 +1,11 @@
 'use client';
 
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useFavoriteProducts } from '@/hooks/useFavoriteProducts';
+import FavoriteProductCard from '@/components/FavoriteProductCard';
+import { Product } from '@/types';
 
 interface FavoriteProductsProps {
   open: boolean;
@@ -69,7 +71,12 @@ const FavoriteProducts: React.FC<FavoriteProductsProps> = ({ open }) => {
                             role='list'
                             className='-my-6 divide-y divide-gray-200'
                           >
-                            {/* favorite products */}
+                            {favoriteProducts?.map((product: Product) => (
+                              <FavoriteProductCard
+                                key={product.id}
+                                product={product}
+                              />
+                            ))}
                           </ul>
                         </div>
                       </div>
