@@ -1,9 +1,12 @@
 'use client';
 
+import FavoriteProducts from '@/components/FavoriteProducts';
 import { Product } from '@/types';
 import React, { createContext, useState } from 'react';
 
 interface FavoriteProductsContextType {
+  openFavoriteProducts: () => void;
+  closeFavoriteProducts: () => void;
   favoriteProducts: Product[];
   toggleFavorite: (product: Product) => void;
   isProductFavorite: (product: Product) => boolean;
@@ -19,7 +22,11 @@ export const FavoriteProductsProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const [open, setOpen] = useState(false);
   const [favoriteProducts, setFavoriteProducts] = useState<Product[]>([]);
+
+  const openFavoriteProducts = () => setOpen(true);
+  const closeFavoriteProducts = () => setOpen(false);
 
   const toggleFavorite = (product: Product) => {
     if (favoriteProducts.includes(product)) {
@@ -37,6 +44,8 @@ export const FavoriteProductsProvider = ({
   return (
     <FavoriteProductsContext.Provider
       value={{
+        openFavoriteProducts,
+        closeFavoriteProducts,
         favoriteProducts,
         toggleFavorite,
         isProductFavorite,
@@ -44,6 +53,7 @@ export const FavoriteProductsProvider = ({
       }}
     >
       {children}
+      <FavoriteProducts open={open} />
     </FavoriteProductsContext.Provider>
   );
 };
