@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
 
 const getSavedValue = (key: string, initialValue: any) => {
-  const savedValue = localStorage.getItem(key);
+  if (typeof window !== 'undefined') {
+    const savedValue = localStorage.getItem(key);
 
-  if (savedValue) return JSON.parse(savedValue);
+    if (savedValue) {
+      return JSON.parse(savedValue);
+    }
+  }
 
   if (initialValue instanceof Function) return initialValue();
 
