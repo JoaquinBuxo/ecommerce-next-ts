@@ -1,11 +1,18 @@
 import React from 'react';
 import { Product } from '@/types';
+import { useFavoriteProducts } from '../hooks/useFavoriteProducts';
+import { HeartIcon as HeartOutlineIcon } from '@heroicons/react/24/outline';
+import { HeartIcon as HeartFilledIcon } from '@heroicons/react/24/solid';
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const { toggleFavorite, isProductFavorite } = useFavoriteProducts();
+
+  console.log();
+
   return (
     <div className='product-card group relative'>
       <div className='aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80'>
@@ -22,6 +29,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <p className='mt-1 text-sm text-gray-500'>{product.brand_name}</p>
           <p className='mt-1 text-sm text-gray-500'>{product.final_price} €</p>
         </div>
+        <button
+          className='favorite-button text-sm font-medium text-gray-900'
+          onClick={() => toggleFavorite(product)}
+        >
+          {isProductFavorite(product) ? (
+            <HeartFilledIcon className='h-5 w-5 text-gray-400' />
+          ) : (
+            <HeartOutlineIcon className='h-5 w-5 text-gray-400' />
+          )}
+        </button>
       </div>
     </div>
   );
