@@ -1,5 +1,6 @@
-import SearchBar from './SearchBar';
+import SearchProduct from './SearchProduct';
 import ProductList from './ProductList';
 import ProductCard from './ProductCard';
+import SelectProduct from './SelectProduct';
 
-export { SearchBar, ProductList, ProductCard };
+export { SearchProduct, ProductList, ProductCard, SelectProduct };

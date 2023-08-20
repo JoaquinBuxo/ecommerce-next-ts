@@ -1,6 +1,6 @@
 'use client';
 
-import { ProductList, SearchBar } from '@/components';
+import { ProductList, SearchProduct, SelectProduct } from '@/components';
 import { useFetch } from '@/hooks/useFetch';
 import { Product } from '@/types';
 import { useEffect, useState } from 'react';
@@ -24,8 +24,19 @@ export default function Home() {
             CATALOGUE
           </h1>
         </section>
-        <section className='home__filters'>
-          <SearchBar setFilteredProducts={setFilteredProducts} />
+        <section className='home__filters mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
+          <div className='sm:col-span-3'>
+            <SearchProduct
+              products={data?.data.products.items}
+              setFilteredProducts={setFilteredProducts}
+            />
+          </div>
+          <div className='sm:col-span-3'>
+            <SelectProduct
+              products={data?.data.products.items}
+              setFilteredProducts={setFilteredProducts}
+            />
+          </div>
         </section>
         <section className='products-container'>
           {loading ? (
