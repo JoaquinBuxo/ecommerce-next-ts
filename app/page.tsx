@@ -1,6 +1,8 @@
 'use client';
 
 import { ProductList, SearchProduct, SelectProduct } from '@/components';
+import NavBar from '@/components/NavBar';
+import { useFavoriteProducts } from '@/hooks/useFavoriteProducts';
 import { useFetch } from '@/hooks/useFetch';
 import { useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -15,12 +17,8 @@ export default function Home() {
 
   return (
     <main className='overflow-hidden'>
-      <div className='mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8'>
-        <section className='home__title-container '>
-          <h1 className='text-2xl font-bold tracking-tight text-gray-900'>
-            CATALOGUE
-          </h1>
-        </section>
+      <div className='mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-12 lg:max-w-full lg:px-8'>
+        <NavBar />
         <section className='home__filters mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
           <div className='sm:col-span-3'>
             <SearchProduct setSearchQuery={setSearchQuery} />

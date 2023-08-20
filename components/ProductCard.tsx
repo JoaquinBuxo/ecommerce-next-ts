@@ -1,6 +1,6 @@
 import React from 'react';
 import { Product } from '@/types';
-import { useFavoriteProducts } from '../hooks/useFavoriteProducts';
+import { useFavoriteProducts } from '@/hooks/useFavoriteProducts';
 import { HeartIcon as HeartOutlineIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartFilledIcon } from '@heroicons/react/24/solid';
 
@@ -10,8 +10,6 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { toggleFavorite, isProductFavorite } = useFavoriteProducts();
-
-  console.log();
 
   return (
     <div className='product-card group relative'>
@@ -34,9 +32,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           onClick={() => toggleFavorite(product)}
         >
           {isProductFavorite(product) ? (
-            <HeartFilledIcon className='h-5 w-5 text-gray-400' />
+            <HeartFilledIcon className='h-7 w-7 mr-4 text-gray-400' />
           ) : (
-            <HeartOutlineIcon className='h-5 w-5 text-gray-400' />
+            <HeartOutlineIcon className='h-7 w-7 mr-4 text-gray-400' />
           )}
         </button>
       </div>

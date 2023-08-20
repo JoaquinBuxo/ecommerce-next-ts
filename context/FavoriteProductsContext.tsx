@@ -7,6 +7,7 @@ interface FavoriteProductsContextType {
   favoriteProducts: Product[];
   toggleFavorite: (product: Product) => void;
   isProductFavorite: (product: Product) => boolean;
+  numFavoriteProducts: number;
 }
 
 export const FavoriteProductsContext = createContext(
@@ -31,9 +32,16 @@ export const FavoriteProductsProvider = ({
   const isProductFavorite = (product: Product) =>
     favoriteProducts.includes(product);
 
+  const numFavoriteProducts = favoriteProducts.length;
+
   return (
     <FavoriteProductsContext.Provider
-      value={{ favoriteProducts, toggleFavorite, isProductFavorite }}
+      value={{
+        favoriteProducts,
+        toggleFavorite,
+        isProductFavorite,
+        numFavoriteProducts,
+      }}
     >
       {children}
     </FavoriteProductsContext.Provider>
