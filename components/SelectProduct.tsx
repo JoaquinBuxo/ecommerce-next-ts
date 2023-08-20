@@ -5,15 +5,15 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
 interface SelectProductProps {
   products: Product[];
-  setFilteredProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+  selectedBrand: string;
+  setSelectedBrand: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const SelectProduct: React.FC<SelectProductProps> = ({
   products,
-  setFilteredProducts,
+  selectedBrand,
+  setSelectedBrand,
 }) => {
-  const [selectedBrand, setSelectedBrand] = useState('All Brands');
-
   const classNames = (...classes: (string | boolean)[]): string => {
     return classes.filter(Boolean).join(' ');
   };
@@ -23,20 +23,9 @@ const SelectProduct: React.FC<SelectProductProps> = ({
     ...Array.from(new Set(products?.map((product) => product.brand_name))),
   ];
 
-  const handleBrandChange = (selectedBrand: string) => {
-    setSelectedBrand(selectedBrand);
-
-    const filteredProducts =
-      selectedBrand === 'All Brands'
-        ? products
-        : products?.filter((product) => product.brand_name === selectedBrand);
-
-    setFilteredProducts(filteredProducts);
-  };
-
   return (
     <>
-      <Listbox value='' onChange={handleBrandChange}>
+      <Listbox value={selectedBrand} onChange={setSelectedBrand}>
         {({ open }) => (
           <>
             <Listbox.Label className='block text-sm font-medium leading-6 text-gray-900'>

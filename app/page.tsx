@@ -2,19 +2,16 @@
 
 import { ProductList, SearchProduct, SelectProduct } from '@/components';
 import { useFetch } from '@/hooks/useFetch';
-import { Product } from '@/types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 const graphqlAPI = process.env.NEXT_PUBLIC_API_URL || '';
 
 export default function Home() {
   const { data, loading, error } = useFetch(graphqlAPI);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
-  useEffect(() => {
-    setFilteredProducts(data?.data.products.items);
-  }, [data?.data.products.items]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedBrand, setSelectedBrand] = useState('All Brands');
 
   return (
     <main className='overflow-hidden'>
@@ -26,15 +23,13 @@ export default function Home() {
         </section>
         <section className='home__filters mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
           <div className='sm:col-span-3'>
-            <SearchProduct
-              products={data?.data.products.items}
-              setFilteredProducts={setFilteredProducts}
-            />
+            <SearchProduct setSearchQuery={setSearchQuery} />
           </div>
           <div className='sm:col-span-3'>
             <SelectProduct
               products={data?.data.products.items}
-              setFilteredProducts={setFilteredProducts}
+              selectedBrand={selectedBrand}
+              setSelectedBrand={setSelectedBrand}
             />
           </div>
         </section>
@@ -45,7 +40,10 @@ export default function Home() {
             <ErrorBoundary
               fallback={<div>Error fetching data: {error?.message}</div>}
             >
-              <ProductList products={filteredProducts} />
+              <ProductList
+                products={data?.data.products.items}
+                filters={{ searchQuery, selectedBrand }}
+              />
             </ErrorBoundary>
           )}
         </section>

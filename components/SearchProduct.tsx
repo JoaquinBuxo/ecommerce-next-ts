@@ -1,32 +1,13 @@
 'use client';
 
-import { Product } from '@/types';
-
 interface SearchProductProps {
-  products: Product[];
-  setFilteredProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchProduct: React.FC<SearchProductProps> = ({
-  products,
-  setFilteredProducts,
-}) => {
-  let timer: NodeJS.Timeout | null = null;
-
+const SearchProduct: React.FC<SearchProductProps> = ({ setSearchQuery }) => {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value;
-
-    if (timer) clearTimeout(timer);
-
-    timer = setTimeout(() => {
-      const filteredProducts =
-        query === ''
-          ? products
-          : products?.filter((product) =>
-              product.sku.toLowerCase().includes(query.toLowerCase())
-            );
-      setFilteredProducts(filteredProducts);
-    }, 300);
+    setSearchQuery(query);
   };
 
   return (
