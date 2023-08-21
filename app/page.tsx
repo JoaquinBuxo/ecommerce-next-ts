@@ -9,7 +9,7 @@ import {
 } from '@/components';
 import NavBar from '@/components/NavBar';
 import { useFetch } from '@/hooks/useFetch';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 const graphqlAPI = process.env.NEXT_PUBLIC_API_URL || '';
@@ -17,8 +17,15 @@ const graphqlAPI = process.env.NEXT_PUBLIC_API_URL || '';
 export default function Home() {
   const { data, loading, error } = useFetch(graphqlAPI);
 
+  const [products, setProducts] = useState(data?.data.products.items || []);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('All Brands');
+
+  useEffect(() => {
+    if (data && data.data.products.items) {
+      setProducts(data?.data.products.items);
+    }
+  }, [data]);
 
   return (
     <main className='overflow-hidden'>
@@ -30,7 +37,7 @@ export default function Home() {
           </div>
           <div className='sm:col-span-3'>
             <SelectProduct
-              products={data?.data.products.items}
+              products={products}
               selectedBrand={selectedBrand}
               setSelectedBrand={setSelectedBrand}
             />
@@ -42,7 +49,7 @@ export default function Home() {
           ) : (
             <ErrorBoundary fallback={<Error error={error} />}>
               <ProductList
-                products={data?.data.products.items}
+                products={products}
                 filters={{ searchQuery, selectedBrand }}
               />
             </ErrorBoundary>
